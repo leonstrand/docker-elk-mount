@@ -15,13 +15,8 @@ web_servers=(
 )
 if [ -z "$1" ]; then
   hosts='
-    SACAPPV203
-    SACAPPV204
-    SACAPPV205
-    SACAPPV206
-    SACAPPV207
-    SACWEBV401
-    SACWEBV402
+    SACUATAPPv201
+    PAIAPPv115
   '
 else
   hosts="$@"

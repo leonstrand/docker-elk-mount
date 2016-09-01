@@ -12,11 +12,54 @@ declare -A web_servers
 web_servers=(
 ["SACWEBV401"]="10.153.2.91"
 ["SACWEBV402"]="10.153.2.92"
+["SACUATWEBV201"]="10.153.2.40"
+["SACUATWEBV202"]="10.153.2.41"
 )
+
+# stage
+#SACWEBV401
+#SACWEBV402
+#SACAPPV203
+#SACAPPV204
+#SACAPPV205
+#SACAPPV206
+#SACAPPV207
+
+# uat
+#SACUATWEBV201
+#SACUATWEBV202
+#SACUATAPPV201
+#SACUATAPPV202
+#SACUATAPPV203
+#SACUATAPPV204
+#SACUATAPPV205
+
+# uat2
+#PAIWEBV005
+#PAIWEBV006
+#PAIAPPV115
+#PAIAPPV116
+
 if [ -z "$1" ]; then
   hosts='
-    SACUATAPPv201
-    PAIAPPv115
+    SACWEBV401
+    SACWEBV402
+    SACAPPV203
+    SACAPPV204
+    SACAPPV205
+    SACAPPV206
+    SACAPPV207
+    SACUATWEBV201
+    SACUATWEBV202
+    SACUATAPPV201
+    SACUATAPPV202
+    SACUATAPPV203
+    SACUATAPPV204
+    SACUATAPPV205
+    PAIWEBV005
+    PAIWEBV006
+    PAIAPPV115
+    PAIAPPV116
   '
 else
   hosts="$@"
@@ -40,26 +83,33 @@ for host in $hosts; do
   echo $0: $host #verbose
   ip=''
   case $host in
-    *APP*)
-      ip=`dig $host.medeanalytics.local +noall +answer | tail -1 | awk '{print $NF}'`
-    ;;
-    SACWEB*)
+    SACWEB*|SACUATWEB*)
       ip=${web_servers["$host"]}
+    ;;
+    *)
+      ip=`dig $host.medeanalytics.local +noall +answer | tail -1 | awk '{print $NF}'`
     ;;
   esac
   if [ -n "$ip" ]; then
     echo $0: $ip #verbose
     case $host in
+      SACWEB*)
+        directories="
+          $directories_common
+          $directories_web
+        "
+      ;;
       SACAPP*)
         directories="
           $directories_common
           $directories_app
         "
       ;;
-      SACWEB*)
+      SACUATWEB*)
         directories="
-          $directories_common
-          $directories_web
+          PAI/logs
+          PAI_Reports/logs
+          PAI_FCW/Logs
         "
       ;;
       SACUATAPP*)
@@ -68,6 +118,13 @@ for host in $hosts; do
           pai_fcw/Logs
           PAI_Reports/logs
           RulesEngine/logs
+        "
+      ;;
+      PAIWEB*)
+        directories="
+          fcw/logs
+          PAI_Conifer/Logs
+          PAI_Reports_Conifer/Logs
         "
       ;;
       PAIAPP*)
@@ -79,7 +136,7 @@ for host in $hosts; do
       ;;
       *)
         echo $0: host $host unsupported, skipping... #verbose
-        break
+        continue
       ;;
     esac
     for directory in $directories; do
@@ -104,7 +161,7 @@ for host in $hosts; do
     done
   else
     echo $0: error: could not determine ip address for $host, skipping... #verbose
-    break
+    continue
   fi
 done
 echo #verbose

@@ -143,6 +143,7 @@ for host in $hosts; do
   esac
   if [ -n "$ip" ]; then
     echo $0: $ip #verbose
+    prefix='Mede/Mede'
     case $host in
       SACWEBV121|SACWEBV122|SACWEBV123)
         directories="
@@ -215,11 +216,11 @@ for host in $hosts; do
         echo sudo mkdir -vp /pai-logs/$host/$directory #verbose
         sudo mkdir -vp /pai-logs/$host/$directory
       fi
-      if ! grep -q '^\s*//'$ip'/Mede/Mede/'$directory'\s*/pai-logs/'$host'/'$directory'/\s*cifs\s*username='$cifs_username',password='$cifs_password',ro\s*0\s*0$' /etc/fstab; then
+      if ! grep -q '^\s*//'$ip'/'$prefix'/'$directory'\s*/pai-logs/'$host'/'$directory'/\s*cifs\s*username='$cifs_username',password='$cifs_password',ro\s*0\s*0$' /etc/fstab; then
         echo $0: did not find mount for $host and $directory in /etc/fstab, adding... #verbose
         #//x.x.x.x/Mede/Mede/PAI_Conifer/Logs /pai-logs/host/ cifs username=****,password=****,ro 0 0
-        echo echo \'//$ip/Mede/Mede/$directory /pai-logs/$host/$directory/ cifs username=$cifs_username,password=$cifs_password,ro 0 0\' \| sudo tee -a /etc/fstab #verbose
-        echo '//'$ip'/Mede/Mede/'$directory' /pai-logs/'$host'/'$directory'/ cifs username='$cifs_username',password='$cifs_password',ro 0 0' | sudo tee -a /etc/fstab
+        echo echo \'//$ip/$prefix/$directory /pai-logs/$host/$directory/ cifs username=$cifs_username,password=$cifs_password,ro 0 0\' \| sudo tee -a /etc/fstab #verbose
+        echo '//'$ip'/'$prefix'/'$directory' /pai-logs/'$host'/'$directory'/ cifs username='$cifs_username',password='$cifs_password',ro 0 0' | sudo tee -a /etc/fstab
         echo sudo mount -v /pai-logs/$host/$directory/ #verbose
         sudo mount -v /pai-logs/$host/$directory/
       else

@@ -61,6 +61,10 @@ web_servers=(
 #PAIAPPV115
 #PAIAPPV116
 
+# prod
+#PAIAPPV141
+
+
 if [ -z "$1" ]; then
   hosts='
     SACWEBV401
@@ -81,6 +85,7 @@ if [ -z "$1" ]; then
     PAIWEBV006
     PAIAPPV115
     PAIAPPV116
+    PAIAPPV141
   '
 else
   hosts="$@"
@@ -123,6 +128,14 @@ for host in $hosts; do
   if [ -n "$ip" ]; then
     echo $0: $ip #verbose
     case $host in
+      PAIAPPV141)
+        directories="
+          PAI/logs
+          PAI_FCW/Logs
+          PAI_Reports/Logs
+          PAI_RulesEngine/Logs
+        "
+      ;;
       SACWEB*)
         directories="
           $directories_common

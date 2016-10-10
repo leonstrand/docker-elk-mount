@@ -209,8 +209,9 @@ for host in $hosts; do
 done
 echo #verbose
 echo #verbose
+echo $0: checking for changes to /etc/fstab
 if ! diff /etc/fstab $fstab_before; then
-  echo $0: /etc/fstab changed, backing up to $fstab_after
+  echo $0: /etc/fstab changed, creating backup $fstab_after
   cp -v /etc/fstab $fstab_after
 else
   echo $0: /etc/fstab not changed, removing unnecessary backup $fstab_before

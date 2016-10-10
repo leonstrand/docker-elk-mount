@@ -144,7 +144,7 @@ for host in $hosts; do
   echo $0: $host #verbose
   ip=''
   case $host in
-    SACWEB*|SACUATWEB*|PAIWEBV00[1234]|PAIWEBv101)
+    SACWEB*|SACUATWEB*|PAIWEBV00[1234]|PAIWEBV101)
       ip=`dig $host.medeanalytics.local +short | sort -V | head -1`
     ;;
     *)

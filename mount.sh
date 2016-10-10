@@ -4,8 +4,26 @@
 
 
 # cifs username and password in file named credentials.cifs in same directory as this script
-cifs_username=$(grep username $(dirname $0)/credentials.cifs | awk '{print $NF}')
-cifs_password=$(grep password $(dirname $0)/credentials.cifs | awk '{print $NF}')
+if [ -f $(dirname $0)/credentials.cifs ]; then
+  if [ -s $(dirname $0)/credentials.cifs ]; then
+    cifs_username=$(grep username $(dirname $0)/credentials.cifs | awk '{print $NF}')
+    cifs_password=$(grep password $(dirname $0)/credentials.cifs | awk '{print $NF}')
+  else
+    echo $0: fatal: credentials file has no size: $(dirname $0)/credentials.cifs
+    exit 1
+  fi
+else
+  echo $0: fatal: required credentials file not found: $(dirname $0)/credentials.cifs
+  exit 1
+fi
+if [ -z "$cifs_username" ]; then
+  echo $0: fatal: unable to determine cifs username from credentials file $(dirname $0)/credentials.cifs
+  exit 1
+fi
+if [ -z "$cifs_password" ]; then
+  echo $0: fatal: unable to determine cifs password from credentials file $(dirname $0)/credentials.cifs
+  exit 1
+fi
 
 # static declaration of ip addresses for web servers because dns resolution returns multiple ip addresses
 declare -A web_servers

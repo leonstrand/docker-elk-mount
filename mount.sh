@@ -144,6 +144,7 @@ fstab_after=$(dirname $0)/backup/fstab.${date}.b
 echo #verbose
 echo #verbose
 echo $0: creating backup of /etc/fstab as $fstab_before in case changes are made
+! [ -d $(dirname $0)/backup ] && mkdir -vp $(dirname $0)/backup
 cp -v /etc/fstab $fstab_before
 
 for host in $hosts; do

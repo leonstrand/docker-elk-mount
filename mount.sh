@@ -63,6 +63,16 @@ web_servers=(
 
 # prod
 #PAIAPPV141
+#PAIAPPV141
+#PAIAPPV142
+#PAIAPPV143
+#PAIAPPV144
+#PAIAPPV145
+#PAIAPPMV131
+#PAIAPPMV132
+#PAIAPPMV133
+#PAIAPPMV134
+#PAIAPPMV135
 
 
 if [ -z "$1" ]; then
@@ -86,6 +96,15 @@ if [ -z "$1" ]; then
     PAIAPPV115
     PAIAPPV116
     PAIAPPV141
+    PAIAPPV142
+    PAIAPPV143
+    PAIAPPV144
+    PAIAPPV145
+    PAIAPPMV131
+    PAIAPPMV132
+    PAIAPPMV133
+    PAIAPPMV134
+    PAIAPPMV135
   '
 else
   hosts="$@"
@@ -128,7 +147,7 @@ for host in $hosts; do
   if [ -n "$ip" ]; then
     echo $0: $ip #verbose
     case $host in
-      PAIAPPV141)
+      PAIAPPV141|PAIAPPV142|PAIAPPV143|PAIAPPV144|PAIAPPV145|PAIAPPMV131|PAIAPPMV132|PAIAPPMV133|PAIAPPMV134|PAIAPPMV135)
         directories="
           PAI/logs
           PAI_FCW/Logs

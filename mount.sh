@@ -153,7 +153,7 @@ for host in $hosts; do
     echo $0: $ip #verbose
     prefix='Mede/Mede'
     case $host in
-    PAIWEBV00[1234])
+      PAIWEBV00[1234])
         directories="
           pai_conifer/logs
           PAI_FCW/Logs

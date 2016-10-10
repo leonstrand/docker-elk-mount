@@ -28,16 +28,6 @@ if [ -z "$cifs_password" ]; then
   exit 1
 fi
 
-# static declaration of ip addresses for web servers because dns resolution returns multiple ip addresses
-declare -A web_servers
-web_servers=(
-["SACWEBV401"]="10.153.2.91"
-["SACWEBV402"]="10.153.2.92"
-["SACUATWEBV201"]="10.153.2.40"
-["SACUATWEBV202"]="10.153.2.41"
-["SACWEBV121"]="10.153.2.132"
-)
-
 # stage
 #SACWEBV401
 #SACWEBV402
@@ -141,7 +131,7 @@ for host in $hosts; do
   ip=''
   case $host in
     SACWEB*|SACUATWEB*)
-      ip=${web_servers["$host"]}
+      ip=`dig $host.medeanalytics.local +short | sort -V | head -1`
     ;;
     *)
       ip=`dig $host.medeanalytics.local +noall +answer | tail -1 | awk '{print $NF}'`

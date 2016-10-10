@@ -67,6 +67,7 @@ fi
 #SACWEBV121
 #SACWEBV122
 #SACWEBV123
+#PAIWEBV001
 
 
 if [ -z "$1" ]; then
@@ -102,6 +103,7 @@ if [ -z "$1" ]; then
     SACWEBV121
     SACWEBV122
     SACWEBV123
+    PAIWEBV001
   '
 else
   hosts="$@"
@@ -134,7 +136,7 @@ for host in $hosts; do
   echo $0: $host #verbose
   ip=''
   case $host in
-    SACWEB*|SACUATWEB*)
+    SACWEB*|SACUATWEB*|PAIWEBV001)
       ip=`dig $host.medeanalytics.local +short | sort -V | head -1`
     ;;
     *)
@@ -145,6 +147,13 @@ for host in $hosts; do
     echo $0: $ip #verbose
     prefix='Mede/Mede'
     case $host in
+    PAIWEBV001)
+        directories="
+          pai_conifer/logs
+          PAI_FCW/Logs
+        "
+        prefix='Mede/mede'
+      ;;
       SACWEBV121|SACWEBV122|SACWEBV123)
         directories="
           PAI_Conifer/Logs

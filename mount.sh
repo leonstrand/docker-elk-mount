@@ -35,6 +35,7 @@ web_servers=(
 ["SACWEBV402"]="10.153.2.92"
 ["SACUATWEBV201"]="10.153.2.40"
 ["SACUATWEBV202"]="10.153.2.41"
+["SACWEBV121"]="10.153.2.132"
 )
 
 # stage
@@ -73,6 +74,7 @@ web_servers=(
 #PAIAPPMV133
 #PAIAPPMV134
 #PAIAPPMV135
+#SACWEBV121
 
 
 if [ -z "$1" ]; then
@@ -105,6 +107,7 @@ if [ -z "$1" ]; then
     PAIAPPMV133
     PAIAPPMV134
     PAIAPPMV135
+    SACWEBV121
   '
 else
   hosts="$@"
@@ -147,6 +150,14 @@ for host in $hosts; do
   if [ -n "$ip" ]; then
     echo $0: $ip #verbose
     case $host in
+      SACWEBV121)
+        directories="
+          PAI_Conifer/Logs
+          PAI_FCW/Logs
+          PAI_Reports_Conifer/Logs
+          RulesEngine_Conifer/Logs
+        "
+      ;;
       PAIAPPV141|PAIAPPV142|PAIAPPV143|PAIAPPV144|PAIAPPV145|PAIAPPMV131|PAIAPPMV132|PAIAPPMV133|PAIAPPMV134|PAIAPPMV135)
         directories="
           PAI/logs

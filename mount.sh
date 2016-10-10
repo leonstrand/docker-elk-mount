@@ -65,6 +65,8 @@ fi
 #PAIAPPMV134
 #PAIAPPMV135
 #SACWEBV121
+#SACWEBV122
+#SACWEBV123
 
 
 if [ -z "$1" ]; then
@@ -98,6 +100,8 @@ if [ -z "$1" ]; then
     PAIAPPMV134
     PAIAPPMV135
     SACWEBV121
+    SACWEBV122
+    SACWEBV123
   '
 else
   hosts="$@"
@@ -140,7 +144,7 @@ for host in $hosts; do
   if [ -n "$ip" ]; then
     echo $0: $ip #verbose
     case $host in
-      SACWEBV121)
+      SACWEBV121|SACWEBV122|SACWEBV123)
         directories="
           PAI_Conifer/Logs
           PAI_FCW/Logs

@@ -3,6 +3,9 @@
 # leon.strand@medeanalytics.com
 
 
+# set date for use with /etc/fstab backup
+date=$(date '+%Y-%m-%d_%H:%M:%S.%N')
+
 # cifs username and password in file named credentials.cifs in same directory as this script
 if [ -f $(dirname $0)/credentials.cifs ]; then
   if [ -s $(dirname $0)/credentials.cifs ]; then
@@ -95,6 +98,15 @@ PAI_Reports_Conifer/Logs
 RulesEngine_Conifer/Logs
 '
 
+
+# create backup of /etc/fstab
+fstab_before=$(dirname $0)/backup/fstab.${date}.a
+fstab_after=$(dirname $0)/backup/fstab.${date}.b
+echo #verbose
+echo #verbose
+echo $0: creating backup of /etc/fstab as $fstab_before in case changes are made
+cp -v /etc/fstab $fstab_before
+
 for host in $hosts; do
   echo #verbose
   echo #verbose
@@ -182,5 +194,14 @@ for host in $hosts; do
     continue
   fi
 done
+echo #verbose
+echo #verbose
+if ! diff /etc/fstab $fstab_before; then
+  echo $0: /etc/fstab changed, backing up to $fstab_after
+  cp -v /etc/fstab $fstab_after
+else
+  echo $0: /etc/fstab not changed, removing unnecessary backup $fstab_before
+  rm -v $fstab_before
+fi
 echo #verbose
 echo #verbose

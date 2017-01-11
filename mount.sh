@@ -180,7 +180,7 @@ for host in $hosts; do
       ;;
       SACWEBV121|SACWEBV122|SACWEBV123)
         directories="
-          PAI_Conifer/Logs
+          PAI/Logs
           PAI_FCW/Logs
           PAI_Reports_Conifer/Logs
           RulesEngine_Conifer/Logs

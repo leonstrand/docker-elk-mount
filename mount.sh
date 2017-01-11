@@ -67,10 +67,6 @@ fi
 #SACWEBV121
 #SACWEBV122
 #SACWEBV123
-#PAIWEBV001
-#PAIWEBV002
-#PAIWEBV003
-#PAIWEBV004
 #PAIWEBV101
 #PAIWEBV102
 #PAIWEBV103
@@ -111,10 +107,6 @@ if [ -z "$1" ]; then
     SACWEBV121
     SACWEBV122
     SACWEBV123
-    PAIWEBV001
-    PAIWEBV002
-    PAIWEBV003
-    PAIWEBV004
     PAIWEBV101
     PAIWEBV102
     PAIWEBV103
@@ -153,7 +145,7 @@ for host in $hosts; do
   echo $0: $host #verbose
   ip=''
   case $host in
-    SACWEB*|SACUATWEB*|PAIWEBV00[1234]|PAIWEBV10[12345])
+    SACWEB*|SACUATWEB*|PAIWEBV10[12345])
       ip=`dig $host.medeanalytics.local +short | sort -V | head -1`
     ;;
     *)

@@ -112,6 +112,11 @@ if [ -z "$1" ]; then
     PAIWEBV103
     PAIWEBV104
     PAIWEBV105
+    SACWEBV141
+    SACWEBV142
+    SACWEBV143
+    SACAPPV121
+    SACAPPV122
   '
 else
   hosts="$@"

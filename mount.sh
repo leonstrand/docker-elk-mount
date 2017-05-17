@@ -170,6 +170,27 @@ for host in $hosts; do
         "
         prefix='Mede/mede'
       ;;
+      SACAPPV121)
+        prefix='mede/Mede'
+        directories='
+          Platform/Logs
+        '
+      ;;
+      SACAPPV122)
+        prefix='mede/ABC'
+        directories='
+          Platform/Logs
+        '
+      ;;
+      SACWEBV141|SACWEBV142|SACWEBV143)
+        prefix='Mede/Partner'
+        directories="
+          PAI/Logs
+          PAI_FCW/Logs
+          PAI_Reports_Conifer/Logs
+          RulesEngine_Conifer/Logs
+        "
+      ;;
       SACWEBV121|SACWEBV122|SACWEBV123)
         directories="
           PAI/Logs

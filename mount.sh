@@ -107,6 +107,8 @@ if [ -z "$1" ]; then
     SACWEBV121
     SACWEBV122
     SACWEBV123
+    SACWEBV124
+    SACWEBV125
     PAIWEBV101
     PAIWEBV102
     PAIWEBV103
@@ -196,7 +198,7 @@ for host in $hosts; do
           RulesEngine_Conifer/Logs
         "
       ;;
-      SACWEBV121|SACWEBV122|SACWEBV123)
+      SACWEBV121|SACWEBV122|SACWEBV123|SACWEBV124|SACWEBV125)
         directories="
           PAI/Logs
           PAI_FCW/Logs
